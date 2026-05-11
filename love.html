@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ 给宝贝的</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5e6e6 0%, #ffd9d9 100%);
+            font-family: 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .heart {
+            font-size: 100px;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            user-select: none;
+            animation: float 2s ease-in-out infinite;
+        }
+        .heart:hover {
+            transform: scale(1.2);
+        }
+        .heart:active {
+            transform: scale(0.9);
+        }
+        .hint {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #b36666;
+            opacity: 0.8;
+        }
+        .count {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #cc9999;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heart" onclick="showLove()">❤️</div>
+    <div class="hint">戳一下这颗心 ❤️</div>
+    <div class="count" id="counter">已经戳了 0 次</div>
+</div>
+
+<script>
+    let count = 0;
+
+    function showLove() {
+        count++;
+        document.getElementById('counter').textContent = '已经戳了 ' + count + ' 次';
+
+        // 弹出我爱你
+        const messages = [
+            '❤️ 我爱你 ❤️',
+            '💕 超级爱你 💕',
+            '😘 么么哒 😘',
+            '🌹 你是我最爱的宝贝 🌹',
+            '🥰 想你啦 🥰',
+            '💖 永远爱你 💖',
+            '✨ 你是我的全世界 ✨',
+            '🐷 你是我的小猪猪 🐷',
+            '🌸 爱你一万年 🌸',
+            '💝 最喜欢你啦 💝',
+            '🌟 你比星星还耀眼 🌟',
+            '🎀 每天多爱你一点 🎀'
+        ];
+        const msg = messages[Math.floor(Math.random() * messages.length)];
+        alert(msg);
+
+        // 同时飘一颗小爱心
+        createFloatingHeart();
+    }
+
+    function createFloatingHeart() {
+        const heart = document.createElement('div');
+        heart.textContent = '❤️';
+        heart.style.cssText = `
+            position: fixed;
+            font-size: ${20 + Math.random() * 30}px;
+            pointer-events: none;
+            z-index: 999;
+            left: ${50 + Math.random() * 80}vw;
+            top: 70vh;
+            opacity: 1;
+            transition: all 1.5s ease-out;
+        `;
+        document.body.appendChild(heart);
+
+        // 动画：往上飘并淡出
+        requestAnimationFrame(() => {
+            heart.style.transform = `translateY(-${300 + Math.random() * 200}px)`;
+            heart.style.opacity = '0';
+        });
+
+        // 1.5秒后移除
+        setTimeout(() => heart.remove(), 1500);
+    }
+</script>
+
+</body>
+</html>
